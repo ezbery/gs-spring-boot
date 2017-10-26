@@ -10,4 +10,9 @@ public class HelloController {
         return "Greetings from Spring Boot!";
     }
 
+
+    @GetMapping("/test")
+    public String txt() {
+        return "test";
+    }
 }

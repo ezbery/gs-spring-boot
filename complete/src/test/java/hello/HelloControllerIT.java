@@ -38,4 +38,11 @@ public class HelloControllerIT {
                 String.class);
         assertThat(response.getBody(), equalTo("Greetings from Spring Boot!"));
     }
+
+    @Test
+    public void getText() throws Exception {
+        ResponseEntity<String> response = template.getForEntity(base + "test/".toString(),
+                String.class);
+        assertThat(response.getBody(), equalTo("test"));
+    }
 }
