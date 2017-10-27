@@ -32,5 +32,7 @@ dependencies {
     // tag::tests[]
     testCompile("org.springframework.boot:spring-boot-starter-test")
     // end::tests[]
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final'
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    runtime('org.postgresql:postgresql')
 }
-
