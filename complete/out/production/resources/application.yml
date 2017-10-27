@@ -1,0 +1,8 @@
+spring:
+    datasource:
+        password: 1
+        url: jdbc:postgresql://localhost:5432/spring-test
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: create-drop

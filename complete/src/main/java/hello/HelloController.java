@@ -12,7 +12,10 @@ public class HelloController {
 
     @PostMapping("/{variable}")
     public String index2(@PathVariable String variable) {
-        return "response: " + variable;
+        UserRepository repository = null;
+        Userer user = new Userer(variable);
+        repository.save(user);
+        return "response: " + variable + "id: " + user.getId();
     }
 
     @GetMapping("/test")
