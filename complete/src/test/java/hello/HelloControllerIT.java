@@ -41,7 +41,7 @@ public class HelloControllerIT {
 
     @Test
     public void getText() throws Exception {
-        ResponseEntity<String> response = template.getForEntity(base + "test/".toString(),
+        ResponseEntity<String> response = template.getForEntity(base + "test/",
                 String.class);
         assertThat(response.getBody(), equalTo("test"));
     }
