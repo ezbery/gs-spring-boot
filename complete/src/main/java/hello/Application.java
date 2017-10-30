@@ -50,13 +50,6 @@ public class Application {
             }
             log.info("");
 
-            // fetch an individual customer by ID
-            Customer customer = repository.findOne(1L);
-            log.info("Customer found with findOne(1L):");
-            log.info("--------------------------------");
-            log.info(customer.toString());
-            log.info("");
-
             // fetch customers by last name
             log.info("Customer found with findByLastName('Bauer'):");
             log.info("--------------------------------------------");
@@ -73,38 +66,45 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner testUser(UserRepository leRepository) {
+    public CommandLineRunner testUser(UserRepository repository) {
         return (args) -> {
-            leRepository.save(new Userer("Test"));
-            leRepository.save(new Userer("Test 2"));
-            leRepository.save(new Userer("Test 3"));
+            repository.save(new Userer("Test"));
+            repository.save(new Userer("Test 2"));
+            repository.save(new Userer("Test 3"));
             // fetch all Users
             log.info("Users found with findAll():");
             log.info("-------------------------------");
-            for (Userer userer : leRepository.findAll()) {
+            for (Userer userer : repository.findAll()) {
                 log.info(userer.toString());
             }
-            log.info("");
-
-            // fetch an individual userer by ID
-            Userer userer = leRepository.findOne(6L);
-            log.info("Userer found with findOne(1L):");
-            log.info("--------------------------------");
-            log.info(userer.toString());
             log.info("");
 
             // fetch users by last name
             log.info("Userer found with findByLastName('Test'):");
             log.info("--------------------------------------------");
-            for (Userer test : leRepository.findByName("Test")) {
+            for (Userer test : repository.findByName("Test")) {
                 log.info(test.toString());
             }
             log.info("");
 
             log.info("Users found by id:");
-            for (Userer id1 : leRepository.findById((long) 6)) {
+            for (Userer id1 : repository.findById((long) 6)) {
                 log.info(id1.toString());
             }
+        };
+    }
+
+    @Bean
+    public CommandLineRunner testPatient(PatientRepository repository) {
+        return (args) -> {
+            repository.save(new Patient("1234", "First", "Last"));
+            repository.save(new Patient("2345", "Second", "Last"));
+
+            for (Patient patient : repository.findAll()) {
+                log.info(patient.toString());
+            }
+            log.info("");
+
         };
     }
 }
