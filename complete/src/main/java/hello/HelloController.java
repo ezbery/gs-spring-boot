@@ -1,21 +1,34 @@
 package hello;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class HelloController {
 
-    @GetMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot!";
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @GetMapping("/all")
+    public List<Patient> returnAllPatients() {
+        return (List<Patient>) patientRepository.findAll();
     }
 
-    @PostMapping("/{variable}")
-    public String index2(@PathVariable String variable) {
-        UserRepository repository = null;
-        Userer user = new Userer(variable);
-        repository.save(user);
-        return "response: " + variable + "id: " + user.getId();
+    @GetMapping("/")
+    public List<Patient> returnPatientById(
+            @RequestParam(name = "id", required = false) Long id) {
+        List<Patient> patientById = patientRepository.findById(id);
+        return patientById;
+    }
+
+
+    @PostMapping("/newPatient")
+    public String newPatient(@RequestBody @Valid Patient newPatient) {
+        patientRepository.save(newPatient);
+        return "created new patient: " + newPatient.toString();
     }
 
     @GetMapping("/test")
