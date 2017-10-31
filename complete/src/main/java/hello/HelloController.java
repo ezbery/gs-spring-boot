@@ -18,17 +18,18 @@ public class HelloController {
     }
 
     @GetMapping("/")
-    public List<Patient> returnPatientById(
-            @RequestParam(name = "id", required = false) Long id) {
-        List<Patient> patientById = patientRepository.findById(id);
-        return patientById;
+    public List<Patient> returnPatient(
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "pesel", required = false) String pesel,
+            @RequestParam(name = "firstName", required = false) String firstName,
+            @RequestParam(name = "lastName", required = false) String lastName) {
+        return patientRepository.findByIdOrFirstNameOrLastNameOrPesel(id, firstName, lastName, pesel);
     }
-
 
     @PostMapping("/newPatient")
     public String newPatient(@RequestBody @Valid Patient newPatient) {
         patientRepository.save(newPatient);
-        return "created new patient: " + newPatient.toString();
+        return "New " + newPatient.toString();
     }
 
     @GetMapping("/test")
