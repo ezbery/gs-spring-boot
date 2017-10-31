@@ -32,6 +32,16 @@ public class HelloController {
         return "New " + newPatient.toString();
     }
 
+    @DeleteMapping("/deletePatient")
+    public Patient deletePatient(
+            @RequestBody Patient patient) {
+        for (Patient patientToDelete : patientRepository.findByIdOrFirstNameOrLastNameOrPesel(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getPesel())) {
+            patientRepository.delete(patientToDelete);
+            return patientToDelete;
+        }
+        return null;
+    }
+
     @GetMapping("/test")
     public String txt() {
         return "test";
